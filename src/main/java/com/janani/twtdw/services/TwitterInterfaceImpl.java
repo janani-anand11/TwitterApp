@@ -1,5 +1,6 @@
 package com.janani.twtdw.services;
 
+import com.janani.twtdw.models.TwitterGetUserInfo;
 import com.janani.twtdw.resources.Tweet;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -15,12 +16,18 @@ public class TwitterInterfaceImpl implements TwitterInterface {
         return status.getText();
     }
 
-    public List<String> getTimeline(Twitter twitter) throws TwitterException {
+    public List<TwitterGetUserInfo> getTimeline(Twitter twitter) throws TwitterException {
         List<Status> statuses = twitter.getHomeTimeline();
-        List<String> temp = new ArrayList<>();
+        List<TwitterGetUserInfo> temp = new ArrayList<>();
 
         for(Status s: statuses){
-            temp.add(s.getUser().getName()+": "+s.getText());
+            TwitterGetUserInfo userInfo = new TwitterGetUserInfo();
+            userInfo.setCreatedAt(s.getCreatedAt().toString());
+            userInfo.setMessage(s.getText());
+            userInfo.setUserName(s.getUser().getName());
+            userInfo.setTwitterHandle(s.getUser().getScreenName());
+            userInfo.setProfileImageUrl(s.getUser().getProfileImageURL());
+            temp.add(userInfo);
         }
         return temp;
     }
