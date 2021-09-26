@@ -1,0 +1,7 @@
+
+# IntelliJ project files
+.idea
+target/
+dependency-reduced-pom.xml
+src/main/resources/assets
+src/main/resources/banner.txt
