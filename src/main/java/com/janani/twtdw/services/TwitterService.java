@@ -17,5 +17,7 @@ public class TwitterService {
     public String postTweet(Twitter twitter, Tweet msg) throws TwitterException{
         return twitterInterface.postTweet(twitter,msg);
     }
-
+    public List<String> getFilterTweets(Twitter twitter, Tweet keyword) throws TwitterException {
+        return twitterInterface.getFilterTweets(twitter, keyword);
+    }
 }
