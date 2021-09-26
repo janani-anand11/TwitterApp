@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>2.1.0-beta.4</dropwizard.version>
-        <mainClass>com.janani.twtdw.TwitterAppApplication</mainClass>
+        <mainClass>com.janani.twtdw.TwitterApplication</mainClass>
         <twitter4j.version>4.0.7</twitter4j.version>
     </properties>
 
