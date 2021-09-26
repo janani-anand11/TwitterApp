@@ -8,6 +8,7 @@ import twitter4j.TwitterException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TwitterInterfaceImpl implements TwitterInterface {
 
@@ -30,6 +31,17 @@ public class TwitterInterfaceImpl implements TwitterInterface {
             temp.add(userInfo);
         }
         return temp;
+    }
+
+    public List<String> getFilterTweets(Twitter twitter, Tweet keyword) throws TwitterException {
+        List<Status> statuses = twitter.getHomeTimeline();
+        String word = keyword.getTweets();
+        List<String> filterTweets = statuses
+                .stream()
+                .filter(s-> s.getText().contains(word))
+                .map(Status::getText)
+                .collect(Collectors.toList());
+        return filterTweets;
     }
 
 }

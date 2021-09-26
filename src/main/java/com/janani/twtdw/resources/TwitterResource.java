@@ -30,7 +30,8 @@ public class TwitterResource{
     @Timed
     public Response tweetOut(Tweet message) throws TwitterException {
         try {
-            String tweetMsg = tweetMethods.postTweet(twitter,message);
+            Tweet msg = Optional.ofNullable(message).orElse(new Tweet("New tweet-1"));
+            String tweetMsg = tweetMethods.postTweet(twitter,msg);
             logger.info("Tweet posted!");
             return Response.status(Response.Status.OK).entity("Successfully posted!").build();
         } catch (TwitterException e) {
@@ -49,6 +50,21 @@ public class TwitterResource{
             return Response.status(Response.Status.OK).entity(statuses).build();
         } catch (TwitterException e) {
             return Response.serverError().entity("Failed to retrieve tweets from timeline.").build();
+        }
+    }
+
+    @GET
+    @Path("/timeline/filter")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Timed
+    public Response getFilteredTweets(Tweet keyword) throws TwitterException {
+        try {
+            Tweet search = Optional.ofNullable(keyword).orElse(new Tweet("the"));
+            List<String> statuses = tweetMethods.getFilterTweets(twitter, search);
+            return Response.status(Response.Status.OK).entity(statuses).build();
+        } catch (TwitterException e) {
+            return Response.serverError().entity("Failed to retrieve filtered tweets from timeline.").build();
         }
     }
 }
