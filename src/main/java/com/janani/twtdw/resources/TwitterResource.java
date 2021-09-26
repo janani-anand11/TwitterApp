@@ -1,6 +1,7 @@
 package com.janani.twtdw.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import org.slf4j.LoggerFactory;
 import twitter4j.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -10,6 +11,7 @@ import java.util.*;
 public class TwitterResource{
     private Twitter twitter;
     private List<Status> statuses;
+    private static org.slf4j.Logger logger =  LoggerFactory.getLogger(TwitterResource.class);
 
     public TwitterResource() throws TwitterException {
         twitter = TwitterFactory.getSingleton();
@@ -23,7 +25,8 @@ public class TwitterResource{
     @Timed
     public Response tweetOut(Tweet message) throws TwitterException {
         try {
-            twitter.updateStatus(message.getTweets());;
+            twitter.updateStatus(message.getTweets());
+            logger.info("Tweet posted!");
             return Response.status(Response.Status.OK).entity("Successfully posted!").build();
         } catch (TwitterException e) {
             return Response.serverError().entity("Failed to post tweet.").build();
@@ -41,6 +44,7 @@ public class TwitterResource{
             for (Status status : statuses) {
                 temp.add(status.getUser().getName()+": "+(status.getText()));
             }
+            logger.info("showing twitter feed.");
             return Response.status(Response.Status.OK).entity(temp.toString()).build();
         } catch (TwitterException e) {
             return Response.serverError().entity("Failed to retrieve tweets from timeline.").build();
