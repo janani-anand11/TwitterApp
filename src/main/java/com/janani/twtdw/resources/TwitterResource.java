@@ -1,6 +1,9 @@
 package com.janani.twtdw.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import com.janani.twtdw.configurations.TwitterConfiguration;
+import com.janani.twtdw.services.TwitterService;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import twitter4j.*;
 import javax.ws.rs.*;
@@ -9,13 +12,14 @@ import java.util.*;
 
 @Path("/api/1.0/twitter")
 public class TwitterResource{
+    private TwitterService tweetMethods;
+    TwitterConfiguration obj = new TwitterConfiguration();
     private Twitter twitter;
-    private List<Status> statuses;
-    private static org.slf4j.Logger logger =  LoggerFactory.getLogger(TwitterResource.class);
+    private static Logger logger =  LoggerFactory.getLogger(TwitterResource.class);
 
     public TwitterResource() throws TwitterException {
-        twitter = TwitterFactory.getSingleton();
-        statuses = new ArrayList<Status>();
+        twitter = obj.twitterConfig();
+        this.tweetMethods = new TwitterService();
     }
 
     @POST
@@ -25,7 +29,7 @@ public class TwitterResource{
     @Timed
     public Response tweetOut(Tweet message) throws TwitterException {
         try {
-            twitter.updateStatus(message.getTweets());
+            String tweetMsg = tweetMethods.postTweet(twitter,message);
             logger.info("Tweet posted!");
             return Response.status(Response.Status.OK).entity("Successfully posted!").build();
         } catch (TwitterException e) {
@@ -39,13 +43,9 @@ public class TwitterResource{
     @Timed
     public Response getTimeline() throws TwitterException {
         try {
-            statuses = twitter.getHomeTimeline();
-            ArrayList<String> temp = new ArrayList<>();
-            for (Status status : statuses) {
-                temp.add(status.getUser().getName()+": "+(status.getText()));
-            }
+            List<String> statuses = tweetMethods.getTimeline(twitter);
             logger.info("showing twitter feed.");
-            return Response.status(Response.Status.OK).entity(temp.toString()).build();
+            return Response.status(Response.Status.OK).entity(statuses).build();
         } catch (TwitterException e) {
             return Response.serverError().entity("Failed to retrieve tweets from timeline.").build();
         }
