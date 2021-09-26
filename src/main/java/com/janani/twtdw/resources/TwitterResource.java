@@ -2,6 +2,7 @@ package com.janani.twtdw.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.janani.twtdw.configurations.TwitterConfiguration;
+import com.janani.twtdw.models.TwitterGetUserInfo;
 import com.janani.twtdw.services.TwitterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +44,7 @@ public class TwitterResource{
     @Timed
     public Response getTimeline() throws TwitterException {
         try {
-            List<String> statuses = tweetMethods.getTimeline(twitter);
+            List<TwitterGetUserInfo> statuses = tweetMethods.getTimeline(twitter);
             logger.info("showing twitter feed.");
             return Response.status(Response.Status.OK).entity(statuses).build();
         } catch (TwitterException e) {
