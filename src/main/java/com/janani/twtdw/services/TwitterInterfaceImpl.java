@@ -1,7 +1,9 @@
 package com.janani.twtdw.services;
 
 import com.janani.twtdw.models.TwitterGetUserInfo;
-import com.janani.twtdw.resources.Tweet;
+import com.janani.twtdw.models.Tweet;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -10,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
+@Primary
 public class TwitterInterfaceImpl implements TwitterInterface {
 
     public String postTweet(Twitter twitter,Tweet msg) throws TwitterException {

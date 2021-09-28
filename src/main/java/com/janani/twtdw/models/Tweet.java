@@ -1,4 +1,4 @@
-package com.janani.twtdw.resources;
+package com.janani.twtdw.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

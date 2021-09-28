@@ -1,6 +1,7 @@
 package com.janani.twtdw.configurations;
 
 import io.dropwizard.Configuration;
+import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 import twitter4j.Twitter;
@@ -10,6 +11,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import java.io.InputStream;
 
+@Component
 public class TwitterConfiguration extends Configuration {
 
     public Twitter twitterConfig() throws TwitterException {

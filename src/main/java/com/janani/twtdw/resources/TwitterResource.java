@@ -2,25 +2,32 @@ package com.janani.twtdw.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.janani.twtdw.configurations.TwitterConfiguration;
+import com.janani.twtdw.models.Tweet;
 import com.janani.twtdw.models.TwitterGetUserInfo;
 import com.janani.twtdw.services.TwitterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Component;
 import twitter4j.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.*;
 
+@Component
 @Path("/api/1.0/twitter")
 public class TwitterResource{
     private TwitterService tweetMethods;
-    TwitterConfiguration obj = new TwitterConfiguration();
+    private TwitterConfiguration obj;
     private Twitter twitter;
     private static Logger logger =  LoggerFactory.getLogger(TwitterResource.class);
 
-    public TwitterResource() throws TwitterException {
+    @Autowired
+    public TwitterResource(TwitterService twitterService, TwitterConfiguration twitterConfiguration) throws TwitterException {
+        this.obj = twitterConfiguration;
+        this.tweetMethods = twitterService;
         twitter = obj.twitterConfig();
-        this.tweetMethods = new TwitterService();
     }
 
     @POST
