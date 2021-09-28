@@ -1,7 +1,7 @@
 package com.janani.twtdw.services;
 
 import com.janani.twtdw.models.TwitterGetUserInfo;
-import com.janani.twtdw.resources.Tweet;
+import com.janani.twtdw.models.Tweet;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 

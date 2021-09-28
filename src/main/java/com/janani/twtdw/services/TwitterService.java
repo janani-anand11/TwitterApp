@@ -1,15 +1,19 @@
 package com.janani.twtdw.services;
 
 import com.janani.twtdw.models.TwitterGetUserInfo;
-import com.janani.twtdw.resources.Tweet;
+import com.janani.twtdw.models.Tweet;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 import java.util.List;
 
+@Service
 public class TwitterService {
 
-    TwitterInterfaceImpl twitterInterface = new TwitterInterfaceImpl();
+    @Autowired
+    TwitterInterface twitterInterface;
 
     public List<TwitterGetUserInfo> getTimeline(Twitter twitter) throws TwitterException{
         return twitterInterface.getTimeline(twitter);
