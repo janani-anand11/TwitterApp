@@ -1,4 +1,4 @@
-package com.janani.twtdw.configurations;
+package com.janani.twtdw.configurations.twitterConfig;
 
 public class Config {
     private String consumerKey;

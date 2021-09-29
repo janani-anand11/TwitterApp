@@ -1,5 +1,6 @@
-package com.janani.twtdw.configurations;
+package com.janani.twtdw.configurations.twitterConfig;
 
+import com.janani.twtdw.configurations.twitterConfig.Config;
 import io.dropwizard.Configuration;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;

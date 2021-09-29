@@ -1,4 +1,4 @@
-package com.janani.twtdw.DependecyInjection;
+package com.janani.twtdw.configurations.DependecyInjection;
 
 import com.janani.twtdw.services.TwitterInterfaceImpl;
 import org.springframework.context.annotation.Bean;
