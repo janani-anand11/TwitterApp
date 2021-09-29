@@ -1,6 +1,6 @@
-package com.janani.twtdw.DependecyInjection;
+package com.janani.twtdw.configurations.DependecyInjection;
 
-import com.janani.twtdw.configurations.TwitterConfiguration;
+import com.janani.twtdw.configurations.twitterConfig.TwitterConfiguration;
 import com.janani.twtdw.services.TwitterService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,3 +19,5 @@ public class SpringConfig {
         return new TwitterConfiguration();
     }
 }
+
+

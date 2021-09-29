@@ -1,7 +1,7 @@
 package com.janani.twtdw.resources;
 
 import com.codahale.metrics.annotation.Timed;
-import com.janani.twtdw.configurations.TwitterConfiguration;
+import com.janani.twtdw.configurations.twitterConfig.TwitterConfiguration;
 import com.janani.twtdw.models.Tweet;
 import com.janani.twtdw.models.TwitterGetUserInfo;
 import com.janani.twtdw.services.TwitterService;
@@ -14,6 +14,7 @@ import twitter4j.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.util.*;
+
 
 @Component
 @Path("/api/1.0/twitter")
@@ -46,17 +47,19 @@ public class TwitterResource{
         }
     }
 
+
     @GET
     @Path("/timeline")
     @Produces(MediaType.APPLICATION_JSON)
     @Timed
-    public Response getTimeline() throws TwitterException {
+    @Cacheable(cacheNames = "timeline")
+    public Object getTimeline() throws TwitterException {
         try {
             List<TwitterGetUserInfo> statuses = tweetMethods.getTimeline(twitter);
             logger.info("showing twitter feed.");
-            return Response.status(Response.Status.OK).entity(statuses).build();
-        } catch (TwitterException e) {
-            return Response.serverError().entity("Failed to retrieve tweets from timeline.").build();
+            return statuses;
+        }catch (TwitterException e) {
+            return "Failed to retrieve tweets from timeline.";
         }
     }
 
@@ -65,13 +68,15 @@ public class TwitterResource{
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Timed
-    public Response getFilteredTweets(Tweet keyword) throws TwitterException {
+    @Cacheable(cacheNames = "filter", key ="#keyword.tweets", cacheManager = "alternateCacheManager")
+    public List<String> getFilteredTweets(Tweet keyword) throws TwitterException {
         try {
             Tweet search = Optional.ofNullable(keyword).orElse(new Tweet("the"));
+            logger.info("showing filtered twitter feed.");
             List<String> statuses = tweetMethods.getFilterTweets(twitter, search);
-            return Response.status(Response.Status.OK).entity(statuses).build();
+            return statuses;
         } catch (TwitterException e) {
-            return Response.serverError().entity("Failed to retrieve filtered tweets from timeline.").build();
+            return Arrays.asList("Failed to retrieve filtered tweets from timeline.");
         }
     }
 }

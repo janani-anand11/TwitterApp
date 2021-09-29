@@ -1,8 +1,9 @@
 package com.janani.twtdw;
 
-import com.janani.twtdw.DependecyInjection.SpringConfig;
-import com.janani.twtdw.DependecyInjection.SpringConfigService;
-import com.janani.twtdw.configurations.TwitterConfiguration;
+import com.janani.twtdw.configurations.DependecyInjection.SpringConfig;
+import com.janani.twtdw.configurations.DependecyInjection.SpringConfigService;
+import com.janani.twtdw.configurations.caching.CacheConfig;
+import com.janani.twtdw.configurations.twitterConfig.TwitterConfiguration;
 import com.janani.twtdw.resources.TwitterResource;
 import com.janani.twtdw.services.TwitterService;
 import io.dropwizard.Application;
@@ -24,7 +25,6 @@ public class TwitterApplication extends Application<TwitterConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<TwitterConfiguration> bootstrap) {
-        // TODO: application initialization
     }
 
     @Override
@@ -32,6 +32,7 @@ public class TwitterApplication extends Application<TwitterConfiguration> {
                     final Environment environment) throws TwitterException {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
         ctx.register(SpringConfig.class, SpringConfigService.class);
+        ctx.register(CacheConfig.class);
         ctx.refresh();
         TwitterService twitterService = ctx.getBean(TwitterService.class);
         TwitterResource resources = ctx.getBean(TwitterResource.class);
