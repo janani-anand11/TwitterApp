@@ -69,7 +69,7 @@ public class TwitterResource{
     @Produces(MediaType.APPLICATION_JSON)
     @Timed
     @Cacheable(cacheNames = "filter", key ="#keyword.tweets", cacheManager = "alternateCacheManager")
-    public Object getFilteredTweets(Tweet keyword) throws TwitterException {
+    public List<String> getFilteredTweets(Tweet keyword) throws TwitterException {
         try {
             Tweet search = Optional.ofNullable(keyword).orElse(new Tweet("the"));
             logger.info("showing filtered twitter feed.");
