@@ -6,6 +6,7 @@ public class TwitterGetUserInfo {
     private String userName;
     private String profileImageUrl;
     private String createdAt;
+    private String statusUrl;
 
     public String getMessage() {
         return message;
@@ -46,4 +47,15 @@ public class TwitterGetUserInfo {
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
+
+    public String getStatusUrl() {
+        return statusUrl;
+    }
+
+    public void setStatusUrl(String statusUrl) {
+        this.statusUrl = statusUrl;
+    }
+
+
+
 }
