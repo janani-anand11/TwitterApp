@@ -8,3 +8,6 @@ How to start the TwitterApp application
 4. To retrieve Tweets from home timeline enter url `http://localhost:8080/api/1.0/twitter/timeline`
 5. To retrieve filtered Tweets from home timeline using a keyword enter url `http://localhost:8080/api/1.0/twitter/timeline/filter`
 6. To post a Tweet enter url `http://localhost:8080/api/1.0/twitter/timeline` on postman and pass the tweet to be posted in the body. 
+
+# To view the UI for TwitterApp:
+Enter url `http://localhost:8080` on browser
