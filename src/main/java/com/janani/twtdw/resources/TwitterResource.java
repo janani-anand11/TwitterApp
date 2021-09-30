@@ -17,7 +17,7 @@ import java.util.*;
 
 
 @Component
-@Path("/api/1.0/twitter")
+@Path("/1.0/twitter")
 public class TwitterResource{
     private TwitterService tweetMethods;
     private TwitterConfiguration obj;

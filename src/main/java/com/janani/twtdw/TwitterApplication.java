@@ -7,6 +7,7 @@ import com.janani.twtdw.configurations.twitterConfig.TwitterConfiguration;
 import com.janani.twtdw.resources.TwitterResource;
 import com.janani.twtdw.services.TwitterService;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -25,6 +26,9 @@ public class TwitterApplication extends Application<TwitterConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<TwitterConfiguration> bootstrap) {
+        bootstrap.addBundle(new AssetsBundle("/assets/css", "/css", null, "css"));
+        bootstrap.addBundle(new AssetsBundle("/assets/js", "/js", null, "js"));
+        bootstrap.addBundle(new AssetsBundle("/assets/", "/", "index.html"));
     }
 
     @Override
