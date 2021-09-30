@@ -3,7 +3,8 @@
 .idea
 target/
 dependency-reduced-pom.xml
-src/main/resources/
+src/main/resources/config.yml
+src/main/resources/banner.txt
 .DS_Store
 src/.DS_Store
 src/main/.DS_Store
