@@ -1,61 +1,62 @@
-//package com.janani.twtdw.resources;
-//
-//import org.easymock.EasyMock;
-//import org.easymock.EasyMockRunner;
-//import org.easymock.Mock;
-//import org.easymock.TestSubject;
-//import org.junit.Assert;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import twitter4j.TwitterException;
-//
-//import javax.ws.rs.core.Response;
-//import static org.junit.jupiter.api.Assertions.*;
-//
-//@RunWith(EasyMockRunner.class)
-//public class TwitterResourceTest {
-//
-//    @Mock
-//    Tweet tweet;
-//
-//    @TestSubject
-//    TwitterResource twitterResource = new TwitterResource();
-//
-//    public TwitterResourceTest() throws TwitterException {
-//    }
-//
-//    @Test
-//    public void test1_tweetOut() throws TwitterException{
-//        Response r;
-//        EasyMock.expect(tweet.getTweets()).andReturn("new tweet");
-//        EasyMock.replay(tweet);
-//        r = twitterResource.tweetOut(tweet);
-//        assertEquals("Successfully posted!",r.getEntity());
-//    }
-//
-//    @Test
-//    public void test2_tweetOutException() throws TwitterException {
-//        Response r;
-//        EasyMock.expect(tweet.getTweets()).andReturn("new tweet");
-//        EasyMock.replay(tweet);
-//        r = twitterResource.tweetOut(tweet);
-//        assertEquals("Failed to post tweet.",r.getEntity());
-//    }
-//
-//    @Test
-//    public void test3_getTimeline() throws TwitterException{
-//        Response r;
-//        r = twitterResource.getTimeline();
-//        Assert.assertNotNull(r.getEntity());
-//    }
-//
-//    @Test
-//    public void test4_getFilteredTweets() throws TwitterException{
-//        Response r;
-//        EasyMock.expect(tweet.getTweets()).andReturn("the");
-//        EasyMock.replay(tweet);
-//        r = twitterResource.getFilteredTweets(tweet);
-//        Assert.assertNotNull(r.getEntity());
-//    }
-//
-//}
+package com.janani.twtdw.resources;
+
+import com.janani.twtdw.configurations.twitterConfig.TwitterConfiguration;
+import com.janani.twtdw.models.Tweet;
+import com.janani.twtdw.services.TwitterService;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
+import twitter4j.TwitterException;
+
+import javax.ws.rs.core.Response;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@RunWith(MockitoJUnitRunner.class)
+public class TwitterResourceTest {
+    @Mock
+    private Tweet tweet;
+
+    @Mock
+    private TwitterConfiguration twitterConfiguration;
+
+    @Mock
+    private TwitterService twitterService;
+
+    @InjectMocks
+    private TwitterResource twitterResource;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void test1_tweetOut() throws TwitterException {
+        Response r;
+        Mockito.when(tweet.getTweets()).thenReturn("new Tweet");
+        r = twitterResource.tweetOut(tweet);
+        assertEquals("Successfully posted!",r.getEntity());
+    }
+
+    @Test
+    public void test2_getTimeline() throws TwitterException {
+        Mockito.when(twitterService.getTimeline(twitterConfiguration.twitterConfig())).thenReturn("");
+        String val = twitterResource.getTimeline();
+        Assertions.assertNotNull(val);
+    }
+
+    @Test
+    public void test3_getFilterTimeline() throws TwitterException {
+        Mockito.when(tweet.getTweets()).thenReturn("and");
+        List<String> val = twitterResource.getFilteredTweets(tweet);
+        Assertions.assertNotNull(val);
+    }
+}
