@@ -1,6 +1,6 @@
 
 function TweetInfo(responseData){
-    timelineDiv = document.getElementById('getTimeline');
+    timelineDiv = document.getElementById('tweet-container');
     timelineDiv.classList.add("timelineDiv");
     // to clear the div block
     while(timelineDiv.firstChild){
@@ -16,7 +16,7 @@ function TweetInfo(responseData){
         text+=" <div class='left'> <span class='date'>" + responseData[index].createdAt + "</span>";
         text+="<span class='status'><a href='" + responseData[index].statusUrl + "' target='_blank' rel='noopener noreferrer'>" + responseData[index].message + "</a></span></div>";
         tweetInfo.innerHTML = text;
-        document.getElementById("getTimeline").appendChild(tweetInfo); 
+        document.getElementById("tweet-container").appendChild(tweetInfo); 
     }
 }
 

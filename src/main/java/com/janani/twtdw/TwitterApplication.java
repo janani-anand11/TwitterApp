@@ -1,7 +1,7 @@
 package com.janani.twtdw;
 
-import com.janani.twtdw.configurations.DependecyInjection.SpringConfig;
-import com.janani.twtdw.configurations.DependecyInjection.SpringConfigService;
+import com.janani.twtdw.configurations.dependecyInjection.SpringConfig;
+import com.janani.twtdw.configurations.dependecyInjection.SpringConfigService;
 import com.janani.twtdw.configurations.caching.CacheConfig;
 import com.janani.twtdw.configurations.twitterConfig.TwitterConfiguration;
 import com.janani.twtdw.resources.TwitterResource;

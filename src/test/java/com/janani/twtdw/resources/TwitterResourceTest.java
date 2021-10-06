@@ -40,9 +40,8 @@ public class TwitterResourceTest {
 
     @Test
     public void test1_tweetOut() throws TwitterException {
-        Response r;
         Mockito.when(tweet.getTweets()).thenReturn("new Tweet");
-        r = twitterResource.tweetOut(tweet);
+        Response r = twitterResource.tweetOut(tweet);
         assertEquals("Successfully posted!",r.getEntity());
     }
 

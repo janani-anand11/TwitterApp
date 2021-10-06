@@ -1,4 +1,4 @@
-package com.janani.twtdw.configurations.DependecyInjection;
+package com.janani.twtdw.configurations.dependecyInjection;
 
 import com.janani.twtdw.configurations.twitterConfig.TwitterConfiguration;
 import com.janani.twtdw.services.TwitterService;
